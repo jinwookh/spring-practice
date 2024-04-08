@@ -1,6 +1,6 @@
 package org.example.batch;
 
-import org.example.Person;
+import org.example.model.Person;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

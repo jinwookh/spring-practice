@@ -1,6 +1,6 @@
 package org.example.batch;
 
-import org.example.Person;
+import org.example.model.Person;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
