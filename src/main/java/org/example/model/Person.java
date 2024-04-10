@@ -21,4 +21,16 @@ public class Person {
     public Person() {
 
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }
