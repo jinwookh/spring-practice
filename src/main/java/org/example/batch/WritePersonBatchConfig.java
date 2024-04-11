@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableBatchProcessing
-public class BatchConfiguration {
+public class WritePersonBatchConfig {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -28,7 +28,7 @@ public class BatchConfiguration {
     private StepBuilderFactory stepBuilderFactory;;
 
     @Bean
-    public ItemReader<Person> reader() {
+    public ItemReader<Person> personReader() {
         return new ListItemReader<>(Arrays.asList(
                 new Person("Alice", 30),
                 new Person("Bob", 35),
@@ -37,33 +37,33 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemProcessor<Person, Person> processor() {
+    public ItemProcessor<Person, Person> personProcessor() {
         return person -> person;
     }
 
     @Bean
-    public JpaPersonWriter writer() {
+    public JpaPersonWriter personWriter() {
         return new JpaPersonWriter();
     }
 
     @Bean
     @JobScope
-    public Step step(ItemReader<Person> reader,
-                     ItemProcessor<Person, Person> processor,
-                     JpaPersonWriter writer) {
+    public Step writePersonStep(ItemReader<Person> personReader,
+                     ItemProcessor<Person, Person> personProcessor,
+                     JpaPersonWriter personWriter) {
         return stepBuilderFactory.get("step")
                 .<Person, Person>chunk(10)
-                .reader(reader)
-                .processor(processor)
-                .writer(writer)
+                .reader(personReader)
+                .processor(personProcessor)
+                .writer(personWriter)
                 .build();
     }
 
     @Bean
-    public Job job(Step step) {
+    public Job writePersonJob(Step writePersonStep) {
         return jobBuilderFactory.get("job")
                 .incrementer(new RunIdIncrementer())
-                .start(step)
+                .start(writePersonStep)
                 .build();
     }
 }
