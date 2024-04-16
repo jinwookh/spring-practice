@@ -26,7 +26,6 @@ public class AppConfig {
     private Properties additionalProp() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "none");
         return properties;
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 @Configuration
@@ -30,9 +31,9 @@ public class WritePersonBatchConfig {
     @Bean
     public ItemReader<Person> personReader() {
         return new ListItemReader<>(Arrays.asList(
-                new Person("Alice", 30),
-                new Person("Bob", 35),
-                new Person("Charlie", 25)
+                new Person("Alice", 30, BigInteger.ONE),
+                new Person("Bob", 35, BigInteger.ONE),
+                new Person("Charlie", 25, BigInteger.ONE)
         ));
     }
 
@@ -61,7 +62,7 @@ public class WritePersonBatchConfig {
 
     @Bean
     public Job writePersonJob(Step writePersonStep) {
-        return jobBuilderFactory.get("job")
+        return jobBuilderFactory.get("personWriteJob")
                 .incrementer(new RunIdIncrementer())
                 .start(writePersonStep)
                 .build();
