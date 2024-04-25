@@ -2,8 +2,7 @@ package org.example.batch;
 
 import org.example.model.Person;
 import org.example.model.Person2;
-import org.example.model.school.ClassRoom;
-import org.example.model.school.Student;
+import org.example.model.school.*;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,14 +30,13 @@ public class JpaPersonWriter implements ItemWriter<Person> {
         Person2 person2 = new Person2("hello", 20, BigInteger.ONE, Date.valueOf(LocalDate.now()), Calendar.getInstance(), BigDecimal.ONE, Time.valueOf(LocalTime.now()));
         Student student = new Student("hello");
         ClassRoom classRoom = new ClassRoom(2L, "history");
+        SeniorJunior seniorJunior = new SeniorJunior("hello");
 
-        for (Person person : persons) {
-            entityManager.persist(person);
-            entityManager.persist(person2);
-            entityManager.persist(student);
-            entityManager.persist(classRoom);
-            classRoom.students.add(student);
-            student.classRooms.add(classRoom);
-        }
+        entityManager.persist(seniorJunior);
+        entityManager.flush();
+        ClassRoomId id = new ClassRoomId(seniorJunior);
+        ClassRoom2 classRoom2 = new ClassRoom2("bye", id);
+        entityManager.persist(classRoom2);
+
     }
 }
