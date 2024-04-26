@@ -7,21 +7,21 @@ import javax.persistence.Id;
 import java.math.BigInteger;
 
 @Entity
-public class Person {
+public class Person3 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int age;
     private BigInteger age2;
 
-    public Person(String name, int age, BigInteger age2) {
+    public Person3(Long id, String name, int age, BigInteger age2) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.age2 = age2;
     }
 
-    public Person() {
+    public Person3() {
 
     }
 

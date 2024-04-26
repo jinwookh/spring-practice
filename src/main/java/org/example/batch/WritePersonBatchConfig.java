@@ -11,6 +11,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.support.ListItemReader;
+import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,6 +58,7 @@ public class WritePersonBatchConfig {
                 .reader(personReader)
                 .processor(personProcessor)
                 .writer(personWriter)
+                .transactionManager(new ResourcelessTransactionManager())
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package org.example.repository;
+package org.example.batch;
 
 import org.example.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;

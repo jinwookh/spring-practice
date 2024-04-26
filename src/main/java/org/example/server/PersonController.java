@@ -1,7 +1,7 @@
 package org.example.server;
 
 import org.example.model.Person;
-import org.example.repository.PersonRepository;
+import org.example.batch.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
