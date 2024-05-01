@@ -2,7 +2,9 @@ package org.example.batch;
 
 import org.example.model.Person;
 import org.example.model.Person3;
+import org.example.model.PersonApplyStudent;
 import org.example.model.school.Department;
+import org.example.model.school.Student;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,28 +27,17 @@ public class JpaPersonWriter implements ItemWriter<Person> {
     @Autowired
     private Person3Repository person3Repository;
 
+    @Autowired
+    private StudentRepository studentRepository;
+
     @Override
     @Transactional
     public void write(List<? extends Person> persons) throws Exception {
 
         Person person = personRepository.findById(1L).get();
-        update(person);
-        System.out.println("hello");
+        Student student = studentRepository.getById(1L);
 
-        Person3 person3 = new Person3(3L, "hello", 40, BigInteger.ONE);
-        person3Repository.save(person3);
-        System.out.println("processing");
-
-        Person person2 = new Person("hello", 40, BigInteger.ONE);
-        personRepository.save(person2);
-        System.out.println("bye");
-
-        Department department = new Department(5L, 8L, "hello");
-        em.persist(department);
-
-    }
-
-    public void update(Person person) {
-        person.setAge(100);
+        PersonApplyStudent personApplyStudent = new PersonApplyStudent(student, person);
+        em.persist(personApplyStudent);
     }
 }
